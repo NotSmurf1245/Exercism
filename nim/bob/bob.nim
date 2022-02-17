@@ -1,17 +1,23 @@
 import std/strutils
-import std/sequtils
 
-proc isCapital(str: string): bool =
-    if str.toUpperAscii == str: return true
-    else: return false
-proc isQuestion(str: string): bool =
-    var strToArray = toSeq(str)
-    var lenOfArray = strToArray.len
-    if (strToArray[lenOfArray] == '?'): return true
-    else: return false
+
+# Main function to call
 proc hey*(str: string): string =
-    if str.len == 0: "Fine. Be that way!"
-    elif isQuestion(str): "Sure."
-    elif isCapital(str) and isQuestion(str): "Calm down, I know what I'm doing!"
-    elif isCapital(str): "Whoa, chill out!"
-    else: "Whatever."
+
+    # First check if given empty/whitspace string
+    if str.isEmptyOrWhitespace:
+        return "Fine. Be that way!"
+
+    # Variables that determine certain factors
+    var shout   = str.contains({'A'..'Z'}) and not str.contains({'a'..'z'})
+    var ask     = str.strip.endsWith('?')
+
+    # Final check with given variables
+    if shout and ask:
+        return "Calm down, I know what I'm doing!"
+    elif shout:
+        return "Whoa, chill out!"
+    elif ask:
+        "Sure."
+    else:
+        "Whatever."
