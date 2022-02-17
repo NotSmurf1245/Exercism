@@ -1,5 +1,7 @@
-proc twoFer(name: string) =
-    if name.len > 0:
-        fmt"One for {name}, one for me."
-    else:
-        "One for you, one for me"
+import std/strformat
+
+proc twoFer*(name: string): string =
+    fmt"One for {name}, one for me."
+
+proc twoFer*(): string = 
+    "One for you, one for me."
